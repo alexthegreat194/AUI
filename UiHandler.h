@@ -3,8 +3,8 @@ class UiHandler
 {
 private:
     std::vector<UiPanel*> panels;
-    Queue<UiEvent*> events = Queue<UiEvent*>(1000);
-    std::vector<UiEvent*> eventVector = std::vector<UiEvent*>();
+    Queue<UiEvent*> events = Queue<UiEvent*>(1000); //not used
+    std::vector<UiEvent*> eventVector = std::vector<UiEvent*>(); //not used
 
 public:
     UiHandler();

@@ -16,5 +16,6 @@ class UiEvent;
 #include "UiComponent.h"
 #include "UiLabel.h"
 #include "UiPanel.h"
+#include "UiButton.h"
 
 #include "UiHandler.cpp"

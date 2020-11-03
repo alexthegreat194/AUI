@@ -3,12 +3,13 @@ class UiPanel
 {
 private:
     int barHeight = 20;
-    int padding = 5;
+    int padding = 10;
     
     int x = 0;
     int y = 0;
     int width = 400;
     int height = barHeight;
+    std::string panelName = "";
 
     UiHandler* handlerReference;
     std::vector<UiComponent*> components;
@@ -16,7 +17,7 @@ private:
     sf::Sprite finalSprite;
 
 public:
-    UiPanel(int width); // width must be bigger then some units
+    UiPanel(int width); // width must be bigger then some? units
     ~UiPanel();
 
     void setPosition(int x, int y);
@@ -25,7 +26,7 @@ public:
     void setHandlerReference(UiHandler* handler);
 
     void addComponent(UiComponent* comp);
-    void preRender();
+    void preRender(); // make this work
     void draw(sf::RenderWindow* window);
 };
 
@@ -72,7 +73,6 @@ void UiPanel::addComponent(UiComponent* comp)
 {
     comp->setHandlerReference(handlerReference);
     components.push_back(comp);
-    preRender();
 }
 void UiPanel::preRender()
 {

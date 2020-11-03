@@ -47,6 +47,8 @@ UiLabel::~UiLabel()
 void UiLabel::logic()
 {
     printf("UiLabel\n");
+    if(func == 0)
+        return;
     UiEvent* event = new UiEvent(func, this);
     handlerReference->addEvent(event);
 }
@@ -67,8 +69,10 @@ void UiLabel::draw(int x, int y, sf::RenderTarget* target)
     text.setPosition(x - sizeX/2, y - sizeY/2);
     target->draw(text);
 
+    /* debug circle
     sf::CircleShape point(5);
     point.setOrigin(2.5, 2.5);
     point.setPosition(x, y);
     target->draw(point);
+    */
 }

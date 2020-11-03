@@ -24,11 +24,10 @@ void UiHandler::pollEvent(sf::Event event, sf::RenderWindow& window)
 }
 void UiHandler::addEvent(UiEvent* event)
 {
-    printf("Event add\n");
+    //printf("Event add\n");
     //events.enqueue(event);
-    UiEvent buffer = *event;
-    printf("Event step\n");
-    eventVector.push_back(event);
+    //printf("Event step\n");
+    event->action();
     printf("Event added\n");
 }
 void UiHandler::eventLoop()

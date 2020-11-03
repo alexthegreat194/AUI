@@ -17,11 +17,15 @@ int main()
     label1.setEvent(labelEvent);
     UiLabel label2("Helloboboob2", 30);
     label2.setEvent(labelEvent);
+    UiButton button1("Button1", 30);
+    UiButton button2("This is But2", 20);
 
     panel.setPosition(200, 200);
     panel.addComponent(&label1);
     panel.addComponent(&label2);
-    
+    panel.addComponent(&button1);
+    panel.addComponent(&button2);
+
     ui.addPanel(&panel);
 
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML works!");

@@ -2,7 +2,7 @@
 class UiComponent
 {
 protected:
-    EventFuction func;
+    EventFuction func = 0;
     UiHandler* handlerReference;
 
 public:
