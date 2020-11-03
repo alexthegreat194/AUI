@@ -9,9 +9,20 @@ void labelEvent()
     printf("Label Event!!!\n");
 }
 
+UiHandler ui;
+
+UiPanel bufferPanel(300);
+UiLabel newlabel("NEW WINDOW!", 20);
+void newPanel()
+{
+    bufferPanel.setPosition(100, 100);
+    ui.addPanel(&bufferPanel);
+}
+
 int main()
 {
-    UiHandler ui;
+    bufferPanel.addComponent(&newlabel);
+    
     UiPanel panel(400);
     UiLabel label1("Helloboboob", 30);
     label1.setEvent(labelEvent);
@@ -19,6 +30,7 @@ int main()
     label2.setEvent(labelEvent);
     UiButton button1("Button1", 30);
     UiButton button2("This is But2", 20);
+    button2.setEvent(newPanel);
 
     panel.setPosition(200, 200);
     panel.addComponent(&label1);

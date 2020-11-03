@@ -13,7 +13,7 @@ public:
     void setHandlerReference(UiHandler* handler);
 
     virtual bool mouseOver(int x, int y) = 0;
-    virtual void logic() = 0;
+    virtual void logic(int x, int y) = 0;
     virtual sf::Vector2f getSize() = 0;
     virtual void draw(int x, int y, sf::RenderTarget* target) = 0;
 };

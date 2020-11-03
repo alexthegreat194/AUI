@@ -14,7 +14,7 @@ public:
     UiLabel(std::string message, unsigned int size);
     ~UiLabel();
 
-    void logic();
+    void logic(int x, int y);
     bool mouseOver(int x, int y);
     sf::Vector2f getSize();
     void preRender();
@@ -44,13 +44,14 @@ UiLabel::~UiLabel()
 {
 }
 
-void UiLabel::logic()
+void UiLabel::logic(int x, int y)
 {
     printf("UiLabel\n");
-    if(func == 0)
-        return;
-    UiEvent* event = new UiEvent(func, this);
-    handlerReference->addEvent(event);
+    if(func != 0 && mouseOver(x, y))
+    {
+        UiEvent* event = new UiEvent(func, this);
+        handlerReference->addEvent(event);
+    }
 }
 
 bool UiLabel::mouseOver(int x, int y)

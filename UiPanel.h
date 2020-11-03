@@ -34,7 +34,7 @@ public:
     void switchFollowMode(int x, int y);
     void updateFollow(sf::RenderWindow &window);
     
-    void logicAllComponents();
+    void logicAllComponents(int x, int y);
     void setHandlerReference(UiHandler* handler);
 
     void addComponent(UiComponent* comp);
@@ -98,10 +98,12 @@ bool UiPanel::mouseOverClose(int x, int y)
     bool inY = (y > this->y) && (y < this->y + this->barHeight);
     return inX && inY;
 }
-void UiPanel::logicAllComponents()
+void UiPanel::logicAllComponents(int x, int y)
 {
     for (size_t i = 0; i < components.size(); i++)
-        components[i]->logic();
+    {
+        components[i]->logic(x, y);            
+    }
 }
 void UiPanel::setHandlerReference(UiHandler* handler)
 {

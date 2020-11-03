@@ -25,7 +25,7 @@ void UiHandler::pollEvent(sf::Event event, sf::RenderWindow& window)
                     //printf("Over Bar\n");
                 }
                 else
-                    panels.at(i)->logicAllComponents();
+                    panels.at(i)->logicAllComponents(mousePos.x, mousePos.y);
             }
         }
         break;
@@ -38,7 +38,7 @@ void UiHandler::addEvent(UiEvent* event)
     //events.enqueue(event);
     //printf("Event step\n");
     event->action();
-    printf("Event added\n");
+    //printf("Event added\n");
 }
 void UiHandler::eventLoop()
 {
@@ -69,6 +69,12 @@ void UiHandler::eventLoop()
 
 void UiHandler::addPanel(UiPanel* newPanel)
 {
+    for (size_t i = 0; i < panels.size(); i++)
+    {
+        if (panels.at(i) == newPanel)
+            return;
+    }
+    
     panels.push_back(newPanel);
 }
 void UiHandler::destroyPanel(UiPanel* panel)

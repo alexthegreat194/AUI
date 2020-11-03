@@ -19,7 +19,7 @@ public:
     void setPadding(int padding){this->padding = padding;}
 
     bool mouseOver(int x, int y);
-    void logic();
+    void logic(int x, int y);
     sf::Vector2f getSize();
     void draw(int x, int y, sf::RenderTarget* target);
 };
@@ -55,13 +55,14 @@ bool UiButton::mouseOver(int x, int y)
     return inX && inY;
 }
 
-void UiButton::logic()
+void UiButton::logic(int x, int y)
 {
     printf("Button Logic!!\n");
-    if(func == 0)
-        return;
-    UiEvent* event = new UiEvent(func, this);
-    handlerReference->addEvent(event);
+    if(func != 0 && mouseOver(x, y))
+    {
+        UiEvent* event = new UiEvent(func, this);
+        handlerReference->addEvent(event);
+    }
 }
 
 sf::Vector2f UiButton::getSize()
