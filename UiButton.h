@@ -83,8 +83,10 @@ void UiButton::draw(int x, int y, sf::RenderTarget* target)
     text.setPosition(x - sizeX/2, y - sizeY/2 + padding/2);
     target->draw(text);
 
+    /* for debug
     sf::CircleShape point(5);
     point.setOrigin(2.5, 2.5);
     point.setPosition(x, y);
     target->draw(point);
+    */
 }

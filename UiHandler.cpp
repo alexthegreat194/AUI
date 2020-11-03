@@ -17,9 +17,19 @@ void UiHandler::pollEvent(sf::Event event, sf::RenderWindow& window)
         for (size_t i = 0; i < panels.size(); i++)
         {
             if (panels.at(i)->mouseOver(mousePos.x, mousePos.y))
-                panels.at(i)->logicAllComponents();
+            {
+                if (panels.at(i)->mouseOverClose(mousePos.x, mousePos.y))
+                    destroyPanel(panels.at(i));
+                else if(panels.at(i)->mouseOverBar(mousePos.x, mousePos.y)){
+                    panels.at(i)->switchFollowMode(mousePos.x, mousePos.y); 
+                    //printf("Over Bar\n");
+                }
+                else
+                    panels.at(i)->logicAllComponents();
+            }
         }
         break;
+    
     }
 }
 void UiHandler::addEvent(UiEvent* event)
@@ -61,10 +71,23 @@ void UiHandler::addPanel(UiPanel* newPanel)
 {
     panels.push_back(newPanel);
 }
+void UiHandler::destroyPanel(UiPanel* panel)
+{
+    for (size_t i = 0; i < panels.size(); i++)
+    {
+        if (panels.at(i) == panel)
+        {
+            panels.erase(panels.begin() + i);
+            return;
+        }
+    }
+    
+}
 void UiHandler::drawAllPanels(sf::RenderWindow* window)
 {
     for (size_t i = 0; i < panels.size(); i++)
     {
-        panels[i]->draw(window);
+        panels.at(i)->updateFollow(*window);
+        panels.at(i)->draw(window);
     }
 }

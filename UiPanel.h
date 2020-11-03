@@ -11,6 +11,12 @@ private:
     int height = barHeight;
     std::string panelName = "";
 
+    // Moving Panel
+    bool followMode = false;
+    int mouseReletiveX = 0;
+    int mouseReletiveY = 0;
+
+    // Referances
     UiHandler* handlerReference;
     std::vector<UiComponent*> components;
     sf::RenderTexture preRenderTexture;
@@ -22,6 +28,12 @@ public:
 
     void setPosition(int x, int y);
     bool mouseOver(int x, int y);
+    bool mouseOverBar(int x, int y);
+    bool mouseOverClose(int x, int y);
+
+    void switchFollowMode(int x, int y);
+    void updateFollow(sf::RenderWindow &window);
+    
     void logicAllComponents();
     void setHandlerReference(UiHandler* handler);
 
@@ -57,6 +69,33 @@ bool UiPanel::mouseOver(int x, int y)
     printf("\t\tDist: x%i, y%i\n", distX, distY);
     */
 
+    return inX && inY;
+}
+bool UiPanel::mouseOverBar(int x, int y)
+{
+    bool inX = (x > this->x) && (x < this->x + this->width - this->barHeight);
+    bool inY = (y > this->y) && (y < this->y + this->barHeight);
+    return inX && inY;
+}
+void UiPanel::switchFollowMode(int x, int y)
+{
+    this->followMode = !followMode;
+    this->mouseReletiveX = x - this->x;
+    this->mouseReletiveY = y - this->y;
+}
+void UiPanel::updateFollow(sf::RenderWindow &window)
+{
+    if(this->followMode)
+    {
+        //printf("Update\n");
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        setPosition(mousePos.x - mouseReletiveX, mousePos.y - mouseReletiveY);
+    }
+}
+bool UiPanel::mouseOverClose(int x, int y)
+{
+    bool inX = (x > this->x + this->width - this->barHeight) && (x < this->x + this->width);
+    bool inY = (y > this->y) && (y < this->y + this->barHeight);
     return inX && inY;
 }
 void UiPanel::logicAllComponents()
@@ -128,10 +167,14 @@ void UiPanel::draw(sf::RenderWindow* window)
 
     sf::RectangleShape topBar(sf::Vector2f((float)width, (float)barHeight));
     topBar.setPosition((float)x, (float)y);
+    topBar.setOutlineThickness(-2);
+    topBar.setOutlineColor(sf::Color(200));
 
     sf::RectangleShape exitButton(sf::Vector2f((float)barHeight, (float)barHeight));
     exitButton.setPosition((float)(width - barHeight + x), (float)(y));
     exitButton.setFillColor(sf::Color(200, 0, 0));
+    exitButton.setOutlineThickness(-2);
+    exitButton.setOutlineColor(sf::Color(100));
 
     sf::RectangleShape background(sf::Vector2f((float)width, (float)height));
     background.setPosition((float)(x), (float)(y));

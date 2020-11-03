@@ -15,6 +15,7 @@ public:
     void eventLoop();
 
     void addPanel(UiPanel* newPanel);
+    void destroyPanel(UiPanel* panel);
     void drawAllPanels(sf::RenderWindow* window);
 };
 
