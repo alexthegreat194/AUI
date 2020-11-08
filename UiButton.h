@@ -6,11 +6,15 @@ private:
     sf::Font font;
     unsigned int size;
 
+    //formatting
     int padding = 25;
     int sizeX;
     int sizeY;
     sf::Text text;
     sf::Sprite textSprite;
+
+    //interative variables
+    int clickLeft = 0;
 
 public:
     UiButton(std::string message, unsigned int size);
@@ -58,10 +62,14 @@ bool UiButton::mouseOver(int x, int y)
 void UiButton::logic(int x, int y)
 {
     printf("Button Logic!!\n");
-    if(func != 0 && mouseOver(x, y))
+    if (mouseOver(x, y))
     {
-        UiEvent* event = new UiEvent(func, this);
-        handlerReference->addEvent(event);
+        if(func != 0)
+        {
+            UiEvent* event = new UiEvent(func, this);
+            handlerReference->addEvent(event);
+        }
+        clickLeft = 50;
     }
 }
 
@@ -73,15 +81,23 @@ sf::Vector2f UiButton::getSize()
 
 void UiButton::draw(int x, int y, sf::RenderTarget* target)
 {
-
     sf::RectangleShape background(sf::Vector2f(sizeX + padding, sizeY + padding));
     background.setFillColor(sf::Color(180));
     background.setOutlineColor(sf::Color::Black);
     background.setOutlineThickness(2);
     background.setPosition(x - sizeX/2 - padding/2, y - sizeY/2 - padding/4 + padding/2);
-    target->draw(background);
 
     text.setPosition(x - sizeX/2, y - sizeY/2 + padding/2);
+    text.setFillColor(sf::Color::White);
+    
+    if (clickLeft > 0)
+    {
+        background.setFillColor(sf::Color::White);
+        text.setFillColor(sf::Color::Black);
+        clickLeft--;
+    }
+    
+    target->draw(background);
     target->draw(text);
 
     /* for debug
